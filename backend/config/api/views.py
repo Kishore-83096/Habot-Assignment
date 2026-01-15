@@ -106,7 +106,7 @@ def employee_list(request):
             employees = employees.filter(role__iexact=role)
 
         paginator = PageNumberPagination()
-        paginator.page_size = 3
+        paginator.page_size = 10
         paginated_employees = paginator.paginate_queryset(employees, request)
 
         serializer = EmployeeSerializer(paginated_employees, many=True)
@@ -267,6 +267,50 @@ def employee_delete(request, pk):
             "error_type": "NotFoundError"
         }, status=status.HTTP_404_NOT_FOUND)
 
+    except Exception as e:
+        return Response({
+            "success": False,
+            "status_code": status.HTTP_500_INTERNAL_SERVER_ERROR,
+            "message": f"An unexpected error occurred: {str(e)}",
+            "error_type": "ServerError"
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+# ========================
+# DEPARTMENTS AND ROLES
+# ========================
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def departments_list(request):
+    try:
+        departments = Employee.objects.values_list('department', flat=True).distinct().exclude(department__isnull=True).exclude(department='')
+        return Response({
+            "success": True,
+            "status_code": status.HTTP_200_OK,
+            "message": "Departments retrieved successfully",
+            "data": list(departments)
+        }, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({
+            "success": False,
+            "status_code": status.HTTP_500_INTERNAL_SERVER_ERROR,
+            "message": f"An unexpected error occurred: {str(e)}",
+            "error_type": "ServerError"
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def roles_list(request):
+    try:
+        roles = Employee.objects.values_list('role', flat=True).distinct().exclude(role__isnull=True).exclude(role='')
+        return Response({
+            "success": True,
+            "status_code": status.HTTP_200_OK,
+            "message": "Roles retrieved successfully",
+            "data": list(roles)
+        }, status=status.HTTP_200_OK)
     except Exception as e:
         return Response({
             "success": False,

@@ -6,7 +6,9 @@ from .views import (
     employee_create,
     employee_detail,
     employee_update,
-    employee_delete
+    employee_delete,
+    departments_list,
+    roles_list
 )
 
 urlpatterns = [
@@ -17,4 +19,6 @@ urlpatterns = [
     path('employees/<int:pk>/', employee_detail, name='employee-detail'),
     path('employees/<int:pk>/update/', employee_update, name='employee-update'),
     path('employees/<int:pk>/delete/', employee_delete, name='employee-delete'),
+    path('departments/', departments_list, name='departments-list'),
+    path('roles/', roles_list, name='roles-list'),
 ]
