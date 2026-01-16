@@ -31,19 +31,13 @@ A full-stack web application for managing employee data with a modern React fron
 ```
 HABOT PROJECT/
 ├── backend/                 # Django REST API
-│   ├── config/             # Main Django app
-│   │   └── api/           # API views and URLs
+│   ├── config/             # Main Django project 
+│   |── api/           # API views and URLs
 │   ├── api_endpoints.md    # API documentation
 │   ├── requirements.txt    # Python dependencies
 │   └── venv/              # Virtual environment
-└── frontend/               # React application
-    ├── src/
-    │   ├── api/           # API client and endpoints
-    │   ├── components/    # Reusable components
-    │   ├── pages/         # Page components
-    │   └── routes/        # Routing configuration
-    ├── package.json       # Node dependencies
-    └── vite.config.js     # Vite configuration
+
+
 ```
 
 ## 🔧 Installation & Setup
